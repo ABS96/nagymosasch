@@ -1,0 +1,26 @@
+{
+  "short_name": "NagymosáSCH",
+  "name": "NagymosáSCH mosógép időzítő",
+  "icons": [
+    {
+      "src": "./icons/favicon.ico",
+      "type": "image/x-icon",
+      "sizes": "16x16 32x32 512x512"
+    },
+    {
+      "src": "./icons/app-icon-192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "./icons/app-icon-512.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  "start_url": ".",
+  "background_color": "#10499f",
+  "display": "standalone",
+  "orientation": "portrait",
+  "theme_color": "#982b90"
+}

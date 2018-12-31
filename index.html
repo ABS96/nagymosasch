@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="hu">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <meta name="theme-color" content="#982b90" />
+    <title>NagymosáSCH</title>
+    <meta
+      name="Description"
+      content="Mosógép program lejárati idő nyilvántartó app a Schönherz kollégium lakói számára"
+    />
+    <link rel="stylesheet" href="./normalize.css" />
+    <link rel="stylesheet" href="./washwithstyle.css" />
+    <link
+      rel="icon"
+      type="image/x-icon"
+      href="./icons/favicon.ico"
+      sizes="16x16 32x32 512x512"
+    />
+    <link rel="manifest" href="./manifest.json" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="spine">
+        <h1 id="title">
+          Nagym<img src="./icons/yellow-icon.svg" alt="o" />sáSCH
+        </h1>
+        <p id="display">
+          <span id="display-input"></span> <span id="display-context"></span>
+        </p>
+        <div id="levels"></div>
+        <div id="keyboard">
+          <div class="row">
+            <button type="button" class="numeric-button">7</button>
+            <button type="button" class="numeric-button">8</button>
+            <button type="button" class="numeric-button">9</button>
+          </div>
+          <div class="row">
+            <button type="button" class="numeric-button">4</button>
+            <button type="button" class="numeric-button">5</button>
+            <button type="button" class="numeric-button">6</button>
+          </div>
+          <div class="row">
+            <button type="button" class="numeric-button">1</button>
+            <button type="button" class="numeric-button">2</button>
+            <button type="button" class="numeric-button">3</button>
+          </div>
+          <div class="row">
+            <button id="enter" type="button">✓</button>
+            <button type="button" class="numeric-button">0</button>
+            <button id="delete" type="button">⌫</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="./integratedcircuit.js" defer></script>
+  </body>
+</html>
