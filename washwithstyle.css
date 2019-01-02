@@ -151,7 +151,7 @@ button:focus {
 #levels p.smooth {
   transition: margin var(--shortAnimDuration);
 }
-#levels p.imminent span {
+#levels p.imminent {
   animation: imminent 2s linear none infinite alternate;
 }
 @keyframes imminent {

@@ -63,20 +63,18 @@ const addMachine = (level, minutes) => {
   let machine = machines[index];
 
   let timeObject = new Date(timeExact);
-  let mainText = document.createTextNode(level + '. – ');
-  let timeText = document.createTextNode(
+  let elemText = document.createTextNode(
     [
+      level,
+      '. – ',
       String(timeObject.getHours()).padStart(2, '0'),
       ':',
       String(timeObject.getMinutes()).padStart(2, '0')
     ].join('')
   );
-  let subElem = document.createElement('span');
-  subElem.appendChild(timeText);
   let elem = document.createElement('p');
   elem.id = level;
-  elem.appendChild(mainText);
-  elem.appendChild(subElem);
+  elem.appendChild(elemText);
   elem.addEventListener('mousedown', lock, false);
   elem.addEventListener('touchstart', lock, false);
   elem.addEventListener('mouseup', checkDismiss, false);
@@ -99,7 +97,6 @@ const addMachine = (level, minutes) => {
     }, timeLeft)
   );
 
-  console.log(minutes + ' ' + imminent);
   if (minutes <= imminent) {
     highlightMachine(level);
   } else {
@@ -232,6 +229,10 @@ document.getElementById('enter').addEventListener(
       }
       setContext('time');
     } else {
+      if (Number(input.textContent) == 0) {
+        input.textContent = '';
+        return;
+      }
       addMachine(currentLevel, Number(input.textContent));
       setContext('level');
     }
