@@ -142,6 +142,50 @@ const highlightMachine = level => {
   machines[getMachineIndex(level)].element.classList.add('imminent');
 };
 
+const addInput = n => {
+  if (input.textContent.length <= maxDigits[context]) {
+    input.textContent += n;
+  }
+};
+
+const deleteInput = () => {
+  if (context == 'time' && input.textContent.length == 0) {
+    setContext('level');
+    input.textContent = currentLevel;
+  } else {
+    input.textContent = input.textContent.slice(0, -1);
+  }
+};
+
+let currentLevel;
+const submitInput = () => {
+  if (input.textContent.length == 0) {
+    return;
+  }
+  if (context == 'level') {
+    currentLevel = input.textContent;
+    if (currentLevel < firstValidLevel || currentLevel > lastValidLevel) {
+      input.textContent = '';
+      return;
+    }
+    for (let i = 0; i < machines.length; ++i) {
+      if (currentLevel == machines[i].level) {
+        input.textContent = '';
+        return;
+      }
+    }
+    setContext('time');
+  } else {
+    if (Number(input.textContent) == 0) {
+      input.textContent = '';
+      return;
+    }
+    addMachine(currentLevel, Number(input.textContent));
+    setContext('level');
+  }
+  input.textContent = '';
+};
+
 // Gesture detection
 
 const unify = e => {
@@ -186,11 +230,7 @@ let buttons = document.getElementsByClassName('numeric-button');
 for (let i = 0; i < buttons.length; ++i) {
   buttons[i].addEventListener(
     'click',
-    event => {
-      if (input.textContent.length <= maxDigits[context]) {
-        input.textContent += event.target.textContent;
-      }
-    },
+    e => addInput(e.target.textContent),
     false
   );
 }
@@ -198,48 +238,30 @@ for (let i = 0; i < buttons.length; ++i) {
 document.getElementById('delete').addEventListener(
   'click',
   () => {
-    if (context == 'time' && input.textContent.length == 0) {
-      setContext('level');
-      input.textContent = currentLevel;
-    } else {
-      input.textContent = input.textContent.slice(0, -1);
-    }
+    deleteInput();
   },
   false
 );
 
-let currentLevel;
 document.getElementById('enter').addEventListener(
   'click',
   () => {
-    if (input.textContent.length == 0) {
-      return;
-    }
-    if (context == 'level') {
-      currentLevel = input.textContent;
-      if (currentLevel < firstValidLevel || currentLevel > lastValidLevel) {
-        input.textContent = '';
-        return;
-      }
-      for (let i = 0; i < machines.length; ++i) {
-        if (currentLevel == machines[i].level) {
-          input.textContent = '';
-          return;
-        }
-      }
-      setContext('time');
-    } else {
-      if (Number(input.textContent) == 0) {
-        input.textContent = '';
-        return;
-      }
-      addMachine(currentLevel, Number(input.textContent));
-      setContext('level');
-    }
-    input.textContent = '';
+    submitInput();
   },
   false
 );
+
+document.addEventListener('keydown', function(e) {
+  if (e.key.match(/^[0-9]{1}$/g)) {
+    addInput(e.key);
+  }
+  if (['Backspace' || 'Delete' || 'Clear'].includes(e.key)) {
+    deleteInput();
+  }
+  if (e.key == 'Enter') {
+    submitInput();
+  }
+});
 
 if ('serviceWorker' in navigator) {
   navigator.serviceWorker.register('./serviceworker.js');
