@@ -1,4 +1,4 @@
-var cacheName = 'nagymosasch-v3';
+var cacheName = 'nagymosasch-v4';
 var contentToCache = [
   './index.html',
   './integratedcircuit.js',
@@ -7,7 +7,8 @@ var contentToCache = [
   './icons/yellow-icon.svg',
   './icons/favicon.ico',
   './icons/app-icon-192.png',
-  './icons/app-icon-512.png'
+  './icons/app-icon-512.png',
+  './icons/launch-icon-512.png'
 ];
 
 self.addEventListener('install', e => {
