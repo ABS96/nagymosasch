@@ -8,4 +8,4 @@ Mosógép program lejárati idő nyilvántartó app a Schönherz Kollégium lak�
 
 _Probléma_: Az összes mosógép foglalt a kollégiumban, és tudni szeretnéd, hogy melyik jár le a leghamarabb.
 
-_Megoldás_: Végigjárod az összes szintet beírod az appba, hogy ott mennyi idő van még a programból. Az app ezeket megjegyzi, és idő szerint növekvő sorrendben mutatja.
+_Megoldás_: Végigjárod az összes szintet és beírod az appba, hogy ott mennyi idő van még a programból. Az app megjegyzi, és idő szerint növekvő sorrendbe állítva megmutatja ezeket.
