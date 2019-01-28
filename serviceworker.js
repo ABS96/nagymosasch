@@ -4,6 +4,7 @@ var contentToCache = [
   './integratedcircuit.js',
   './normalize.css',
   './washwithstyle.css',
+  './manifest.json',
   './icons/yellow-icon.svg',
   './icons/favicon.ico',
   './icons/app-icon-192.png',
