@@ -80,16 +80,20 @@ button:focus {
   height: 1em;
   margin: 0 -0.1em -0.25em;
 }
+@import url('https://fonts.googleapis.com/css?family=Source+Code+Pro');
+#display {
+  padding-bottom: 0.5em;
+}
 #display,
 #display span {
   font-size: 1.8em;
   background-color: var(--colourLight);
-  font-family: monospace;
+  font-family: 'Source Code Pro', monospace;
 }
 #display-context::before {
   content: '█';
   animation: blink 1.5s steps(2, start) infinite;
-  margin-left: -1.65ch;
+  margin-left: -1.55ch;
   color: var(--colourLight);
   mix-blend-mode: difference;
 }
