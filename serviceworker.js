@@ -1,4 +1,4 @@
-var cacheName = 'nagymosasch-v4';
+var cacheName = 'nagymosasch-v5';
 var contentToCache = [
   './index.html',
   './integratedcircuit.js',

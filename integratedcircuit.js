@@ -16,6 +16,7 @@ const machines = [];
 const input = document.getElementById('display-input');
 const contextElement = document.getElementById('display-context');
 const levels = document.getElementById('levels');
+const notificationAlert = document.getElementById('notification-request');
 document.documentElement.style.setProperty(
   '--shortAnimDuration',
   shortAnimDuration + 'ms'
@@ -140,6 +141,15 @@ const removeMachine = level => {
 
 const highlightMachine = level => {
   machines[getMachineIndex(level)].element.classList.add('imminent');
+
+  let options = {
+    body: `${imminent} perc múlva lejár a mosás a ${level}. szinten`,
+    icon: './icons/app-icon-512.png',
+    badge: './icons/favicon.ico'
+  };
+  navigator.serviceWorker.getRegistration().then(reg => {
+    reg.showNotification('NagymosáSCH', options);
+  });
 };
 
 const addInput = n => {
@@ -247,6 +257,21 @@ document.getElementById('enter').addEventListener(
   'click',
   () => {
     submitInput();
+  },
+  false
+);
+
+if (Notification.permission === 'granted') {
+  notificationAlert.remove();
+}
+notificationAlert.addEventListener(
+  'click',
+  e => {
+    Notification.requestPermission().then(function(result) {
+      if (result === 'granted') {
+        notificationAlert.remove();
+      }
+    });
   },
   false
 );

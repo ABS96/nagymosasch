@@ -80,6 +80,9 @@ button:focus {
   height: 1em;
   margin: 0 -0.1em -0.25em;
 }
+#notification-request {
+  background-color: var(--colourYellow);
+}
 @import url('https://fonts.googleapis.com/css?family=Source+Code+Pro');
 #display {
   padding-bottom: 0.5em;
