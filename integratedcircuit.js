@@ -1,6 +1,6 @@
 const suffix = {
   level: '. szint',
-  time: ' perc'
+  time: ' perc',
 };
 const firstValidLevel = 3;
 const lastValidLevel = 18;
@@ -10,7 +10,7 @@ const imminent = 2;
 
 const maxDigits = {
   level: Math.floor(Math.log10(lastValidLevel)),
-  time: 2
+  time: 2,
 };
 const machines = [];
 const input = document.getElementById('display-input');
@@ -19,28 +19,28 @@ const levels = document.getElementById('levels');
 const notificationAlert = document.getElementById('notification-request');
 document.documentElement.style.setProperty(
   '--shortAnimDuration',
-  shortAnimDuration + 'ms'
+  shortAnimDuration + 'ms',
 );
 document.documentElement.style.setProperty(
   '--longAnimDuration',
-  longAnimDuration + 'ms'
+  longAnimDuration + 'ms',
 );
 
 /* ---------- */
 
-const minutesToMillisecs = time => {
+const minutesToMillisecs = (time) => {
   return 1000 * 60 * time;
 };
 
 let context;
-const setContext = newContext => {
+const setContext = (newContext) => {
   context = newContext;
   contextElement.textContent = suffix[context];
 };
 
-const getMachineIndex = m => {
+const getMachineIndex = (m) => {
   return machines
-    .map(function(item) {
+    .map(function (item) {
       return item.level;
     })
     .indexOf(m);
@@ -59,7 +59,7 @@ const addMachine = (level, minutes) => {
     level: level,
     time: timeExact,
     dragging: false,
-    delays: []
+    delays: [],
   });
   let machine = machines[index];
 
@@ -70,8 +70,8 @@ const addMachine = (level, minutes) => {
       '. – ',
       String(timeObject.getHours()).padStart(2, '0'),
       ':',
-      String(timeObject.getMinutes()).padStart(2, '0')
-    ].join('')
+      String(timeObject.getMinutes()).padStart(2, '0'),
+    ].join(''),
   );
   let elem = document.createElement('p');
   elem.id = level;
@@ -87,7 +87,7 @@ const addMachine = (level, minutes) => {
   } else {
     levels.insertBefore(
       elem,
-      document.getElementById(machines[index + 1].level)
+      document.getElementById(machines[index + 1].level),
     );
   }
   machine.element = elem;
@@ -95,7 +95,7 @@ const addMachine = (level, minutes) => {
   machine.delays.push(
     setTimeout(() => {
       removeMachine(level);
-    }, timeLeft)
+    }, timeLeft),
   );
 
   if (minutes <= imminent) {
@@ -104,12 +104,12 @@ const addMachine = (level, minutes) => {
     machine.delays.push(
       setTimeout(() => {
         highlightMachine(level);
-      }, timeLeft - minutesToMillisecs(imminent))
+      }, timeLeft - minutesToMillisecs(imminent)),
     );
   }
 };
 
-const removeMachine = level => {
+const removeMachine = (level) => {
   let machine = machines[getMachineIndex(level)];
   let animTime, animArray;
   if (Date.now() < machine.time) {
@@ -118,9 +118,9 @@ const removeMachine = level => {
       { transform: 'translateX(0)' },
       {
         transform: `translateX(${Math.sign(
-          Number(machine.element.style.marginLeft.slice(0, -2))
-        )}100%)`
-      }
+          Number(machine.element.style.marginLeft.slice(0, -2)),
+        )}100%)`,
+      },
     ];
     for (timeout in machine.delays) {
       clearTimeout(timeout);
@@ -131,7 +131,7 @@ const removeMachine = level => {
   }
   machine.element.animate(animArray, {
     duration: animTime,
-    easing: 'ease-in'
+    easing: 'ease-in',
   });
   setTimeout(() => {
     machine.element.parentNode.removeChild(machine.element);
@@ -139,20 +139,17 @@ const removeMachine = level => {
   }, animTime);
 };
 
-const highlightMachine = level => {
+const highlightMachine = (level) => {
   machines[getMachineIndex(level)].element.classList.add('imminent');
 
-  let options = {
-    body: `${imminent} perc múlva lejár a mosás a ${level}. szinten`,
-    icon: './icons/app-icon-512.png',
-    badge: './icons/favicon.ico'
-  };
-  navigator.serviceWorker.getRegistration().then(reg => {
-    reg.showNotification('NagymosáSCH', options);
+  navigator.serviceWorker.controller.postMessage({
+    command: 'showNotification',
+    imminent: imminent,
+    level: level,
   });
 };
 
-const addInput = n => {
+const addInput = (n) => {
   if (input.textContent.length <= maxDigits[context]) {
     input.textContent += n;
   }
@@ -198,19 +195,19 @@ const submitInput = () => {
 
 // Gesture detection
 
-const unify = e => {
+const unify = (e) => {
   return e.changedTouches ? e.changedTouches[0] : e;
 };
 
 let x0, y0;
-const lock = e => {
+const lock = (e) => {
   x0 = unify(e).clientX;
   y0 = unify(e).clientY;
   e.target.classList.remove('smooth');
   machines[getMachineIndex(e.target.id)].dragging = true;
 };
 
-const drag = e => {
+const drag = (e) => {
   if (!machines[getMachineIndex(e.target.id)].dragging) {
     return;
   }
@@ -218,7 +215,7 @@ const drag = e => {
   e.target.style.marginLeft = dx + 'px';
 };
 
-const checkDismiss = e => {
+const checkDismiss = (e) => {
   const threshold = 150;
   const restraint = 100;
   machines[getMachineIndex(e.target.id)].dragging = false;
@@ -240,8 +237,8 @@ let buttons = document.getElementsByClassName('numeric-button');
 for (let i = 0; i < buttons.length; ++i) {
   buttons[i].addEventListener(
     'click',
-    e => addInput(e.target.textContent),
-    false
+    (e) => addInput(e.target.textContent),
+    false,
   );
 }
 
@@ -250,7 +247,7 @@ document.getElementById('delete').addEventListener(
   () => {
     deleteInput();
   },
-  false
+  false,
 );
 
 document.getElementById('enter').addEventListener(
@@ -258,25 +255,31 @@ document.getElementById('enter').addEventListener(
   () => {
     submitInput();
   },
-  false
+  false,
 );
 
+const askForNotificationPermission = () => {
+  Notification.requestPermission().then((result) => {
+    if (result === 'granted') {
+      notificationAlert.remove();
+    }
+  });
+};
 if (Notification.permission === 'granted') {
   notificationAlert.remove();
 }
 notificationAlert.addEventListener(
+  'touchstart',
+  askForNotificationPermission,
+  false,
+);
+notificationAlert.addEventListener(
   'click',
-  e => {
-    Notification.requestPermission().then(function(result) {
-      if (result === 'granted') {
-        notificationAlert.remove();
-      }
-    });
-  },
-  false
+  askForNotificationPermission,
+  false,
 );
 
-document.addEventListener('keydown', function(e) {
+document.addEventListener('keydown', (e) => {
   if (e.key.match(/^[0-9]{1}$/g)) {
     addInput(e.key);
   }
