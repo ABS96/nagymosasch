@@ -1,7 +1,7 @@
-var cacheName = 'nagymosasch-v5';
+var cacheName = 'nagymosasch-v7';
 var contentToCache = [
   './index.html',
-  './integratedcircuit.js',
+  './microcontroller.js',
   './normalize.css',
   './washwithstyle.css',
   './manifest.json',
@@ -63,7 +63,7 @@ self.addEventListener('message', (e) => {
   switch (e.data.command) {
     case 'showNotification':
       let options = {
-        body: `${e.data.imminent} perc múlva lejár a mosás a ${e.data.level}. szinten`,
+        body: `${e.data.delta} perc múlva lejár a mosás a ${e.data.level}. szinten`,
         icon: './icons/app-icon-512.png',
         badge: './icons/favicon.ico',
         actions: [{ action: 'pick', title: 'Megyek!' }],
